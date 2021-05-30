@@ -23,6 +23,10 @@ class TradeExchangeApplicationTests {
 	
 	@Autowired
 	private ExchangeConsumer exchangeConsumer;
+	
+	private static final int BUY = 1;
+	
+	private static final int SELL = 2;
 
 	
 	/**
@@ -32,9 +36,9 @@ class TradeExchangeApplicationTests {
 	 */
 	@Test
 	void testExchange() throws Exception {
-		Exchange exchange1 = new Exchange("Party A", 2, "IBM", BigDecimal.valueOf(110));
+		Exchange exchange1 = new Exchange("Party A", SELL, "IBM", BigDecimal.valueOf(110));
 		exchangeConsumer.doMatch(exchange1);
-		Exchange exchange2 = new Exchange("Party B", 1, "IBM", BigDecimal.valueOf(110));
+		Exchange exchange2 = new Exchange("Party B", BUY, "IBM", BigDecimal.valueOf(110));
 		exchangeConsumer.doMatch(exchange2);
 		
 		Boolean exchange1NotExist = !isExist(exchangeConsumer.getExchangeList(), exchange1);
@@ -50,11 +54,11 @@ class TradeExchangeApplicationTests {
 	 */
 	@Test
 	void testExchangeWithOrder() throws Exception {
-		Exchange exchange1 = new Exchange("Party A", 2, "IBM", BigDecimal.valueOf(110));
+		Exchange exchange1 = new Exchange("Party A", SELL, "IBM", BigDecimal.valueOf(110));
 		exchangeConsumer.doMatch(exchange1);
-		Exchange exchange2 = new Exchange("Party B", 1, "IBM", BigDecimal.valueOf(110));
+		Exchange exchange2 = new Exchange("Party B", BUY, "IBM", BigDecimal.valueOf(110));
 		exchangeConsumer.doMatch(exchange2);
-		Exchange exchange3 = new Exchange("Party C", 1, "IBM", BigDecimal.valueOf(110));
+		Exchange exchange3 = new Exchange("Party C", BUY, "IBM", BigDecimal.valueOf(110));
 		exchangeConsumer.doMatch(exchange3);
 		
 		Boolean exchange1NotExist = !isExist(exchangeConsumer.getExchangeList(), exchange1);
@@ -73,17 +77,17 @@ class TradeExchangeApplicationTests {
 	@Test
 	void testGetUnmatchedOrders() throws Exception {
 		
-		Exchange exchange1 = new Exchange("Party A", 2, "IBM", BigDecimal.valueOf(110));
+		Exchange exchange1 = new Exchange("Party A", SELL, "IBM", BigDecimal.valueOf(110));
 		exchangeConsumer.doMatch(exchange1);
-		Exchange exchange2 = new Exchange("Party A", 2, "INFY", BigDecimal.valueOf(600));
+		Exchange exchange2 = new Exchange("Party A", SELL, "INFY", BigDecimal.valueOf(600));
 		exchangeConsumer.doMatch(exchange2);
-		Exchange exchange3 = new Exchange("Party A", 2, "GOOG", BigDecimal.valueOf(500));
+		Exchange exchange3 = new Exchange("Party A", SELL, "GOOG", BigDecimal.valueOf(500));
 		exchangeConsumer.doMatch(exchange3);
-		Exchange exchange4 = new Exchange("Party B", 1, "IBM", BigDecimal.valueOf(110));
+		Exchange exchange4 = new Exchange("Party B", BUY, "IBM", BigDecimal.valueOf(110));
 		exchangeConsumer.doMatch(exchange4);
-		Exchange exchange5 = new Exchange("Party C", 1, "IBM", BigDecimal.valueOf(110));
+		Exchange exchange5 = new Exchange("Party C", BUY, "IBM", BigDecimal.valueOf(110));
 		exchangeConsumer.doMatch(exchange5);
-		Exchange exchange6 = new Exchange("Party C", 1, "INFY", BigDecimal.valueOf(600));
+		Exchange exchange6 = new Exchange("Party C", BUY, "INFY", BigDecimal.valueOf(600));
 		exchangeConsumer.doMatch(exchange6);
 		
 		List<Exchange> unmatchedOrdersList = exchangeController.getUnmatchedOrders(new FetchOrder()).getBody();
@@ -108,17 +112,17 @@ class TradeExchangeApplicationTests {
 	@Test
 	void testGetTrades() throws Exception {
 		
-		Exchange exchange1 = new Exchange("Party A", 2, "IBM", BigDecimal.valueOf(110));
+		Exchange exchange1 = new Exchange("Party A", SELL, "IBM", BigDecimal.valueOf(110));
 		exchangeConsumer.doMatch(exchange1);
-		Exchange exchange2 = new Exchange("Party A", 2, "INFY", BigDecimal.valueOf(600));
+		Exchange exchange2 = new Exchange("Party A", SELL, "INFY", BigDecimal.valueOf(600));
 		exchangeConsumer.doMatch(exchange2);
-		Exchange exchange3 = new Exchange("Party A", 2, "GOOG", BigDecimal.valueOf(500));
+		Exchange exchange3 = new Exchange("Party A", SELL, "GOOG", BigDecimal.valueOf(500));
 		exchangeConsumer.doMatch(exchange3);
-		Exchange exchange4 = new Exchange("Party B", 1, "IBM", BigDecimal.valueOf(110));
+		Exchange exchange4 = new Exchange("Party B", BUY, "IBM", BigDecimal.valueOf(110));
 		exchangeConsumer.doMatch(exchange4);
-		Exchange exchange5 = new Exchange("Party C", 1, "IBM", BigDecimal.valueOf(110));
+		Exchange exchange5 = new Exchange("Party C", BUY, "IBM", BigDecimal.valueOf(110));
 		exchangeConsumer.doMatch(exchange5);
-		Exchange exchange6 = new Exchange("Party C", 1, "INFY", BigDecimal.valueOf(600));
+		Exchange exchange6 = new Exchange("Party C", BUY, "INFY", BigDecimal.valueOf(600));
 		exchangeConsumer.doMatch(exchange6);
 		FetchTrade fetchTrade = new FetchTrade();	fetchTrade.setSellerCode("Party A");
 		List<Trade> tradeList = exchangeController.getTrades(fetchTrade).getBody();

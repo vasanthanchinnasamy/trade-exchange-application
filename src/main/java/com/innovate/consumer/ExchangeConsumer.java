@@ -23,6 +23,9 @@ private List<Exchange> currentExchangeList = new LinkedList<>();
 
 @Autowired
 private RabbitTemplate template;
+
+private static final int BUY = 1;
+private static final int SELL = 2;
 	
 	/**
 	 * doMatch consumes order messages and does matching with already existing orders
@@ -41,8 +44,8 @@ private RabbitTemplate template;
 		match.ifPresentOrElse(matchedItem->{
 			
 			Trade trade = new Trade(
-					 matchedItem.getExchangeType() == 2?matchedItem.getCustomerCode():exchange.getCustomerCode()
-					,matchedItem.getExchangeType() == 1?matchedItem.getCustomerCode():exchange.getCustomerCode()
+					 matchedItem.getExchangeType() == SELL?matchedItem.getCustomerCode():exchange.getCustomerCode()
+					,matchedItem.getExchangeType() == BUY?matchedItem.getCustomerCode():exchange.getCustomerCode()
 					,matchedItem.getStockCode(),matchedItem.getStockPrice(),LocalDate.now());
 			
 			template.convertAndSend(MessagingConfiguration.EXCHANGE, MessagingConfiguration.MATCH_ROUTING_KEY, trade);
