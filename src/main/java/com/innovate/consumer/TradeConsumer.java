@@ -14,6 +14,11 @@ public class TradeConsumer {
 	@Autowired
 	private TradeRepository tradeRepository;
 	
+	/**
+	 * performTrade consumes Trade data as message and inserts the trade data into database.
+	 * @param trade
+	 * @throws Exception
+	 */
 	@RabbitListener(queues = MessagingConfiguration.MATCH_QUEUE)
 	public void  performTrade(Trade trade) throws Exception{		
 		tradeRepository.save(trade);		

@@ -25,6 +25,11 @@ class TradeExchangeApplicationTests {
 	private ExchangeConsumer exchangeConsumer;
 
 	
+	/**
+	 * testExchange tests whether order matching algorithm works correctly
+	 * 
+	 * @throws Exception
+	 */
 	@Test
 	void testExchange() throws Exception {
 		Exchange exchange1 = new Exchange("Party A", 2, "IBM", BigDecimal.valueOf(110));
@@ -39,6 +44,10 @@ class TradeExchangeApplicationTests {
 		
 	}
 	
+	/**
+	 * testExchangeWithOrder tests whether order matching algorithm matches order based on the order it arrived 
+	 * @throws Exception
+	 */
 	@Test
 	void testExchangeWithOrder() throws Exception {
 		Exchange exchange1 = new Exchange("Party A", 2, "IBM", BigDecimal.valueOf(110));
@@ -56,6 +65,11 @@ class TradeExchangeApplicationTests {
 													, "Exchanges are matched in wrong order");
 	}
 	
+	/**
+	 * testGetUnmatchedOrders tests whether getUnmatchedOrders method in ExchangeController works correctly
+	 * 
+	 * @throws Exception
+	 */
 	@Test
 	void testGetUnmatchedOrders() throws Exception {
 		
@@ -86,6 +100,11 @@ class TradeExchangeApplicationTests {
 				, "Unmatched records are fetched wrong");
 	}
 	
+	/**
+	 * testGetTrades tests whether getTrades method in ExchangeController works correctly
+	 * 
+	 * @throws Exception
+	 */
 	@Test
 	void testGetTrades() throws Exception {
 		

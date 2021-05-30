@@ -24,6 +24,12 @@ private List<Exchange> currentExchangeList = new LinkedList<>();
 @Autowired
 private RabbitTemplate template;
 	
+	/**
+	 * doMatch consumes order messages and does matching with already existing orders
+	 * 
+	 * @param exchange
+	 * @throws Exception
+	 */
 	@RabbitListener(queues = MessagingConfiguration.MATCH_QUEUE)
 	public void  doMatch(@RequestBody Exchange exchange)  throws Exception{
 		

@@ -31,26 +31,24 @@ public class ExchangeController {
 	
 	/**
 	 * getTrades fetch trades based on Seller Code, Buyer Code, Stock Code, Trade Date when filters are passed.
-	 * 			 fetch all trades when no filters are passed.
+	 * fetch all trades when no filters are passed.
 	 * @param fetchTrade
 	 * @return
 	 */
 	@GetMapping("/getTrades")
-	public ResponseEntity<List<Trade>> getTrades(@RequestBody FetchTrade fetchTrade){
-		
+	public ResponseEntity<List<Trade>> getTrades(@RequestBody FetchTrade fetchTrade){		
 		return new ResponseEntity<>(tradeRepository.getTrades(fetchTrade),HttpStatus.OK);		
 	}	 
 	
 	
 	/**
 	 * getUnmatchedOrders fetch unmatched records based on Seller Code, Buyer Code, Stock Price when filters are passed
-	 * 		              fetch all unmatched records when no filters are passed.							
+	 * fetch all unmatched records when no filters are passed.							
 	 * @param fetchOrder
 	 * @return
 	 */  
 	@GetMapping("/getUnmatchedOrders")
-	public ResponseEntity<List<Exchange>> getUnmatchedOrders(@RequestBody FetchOrder fetchOrder){
-		
+	public ResponseEntity<List<Exchange>> getUnmatchedOrders(@RequestBody FetchOrder fetchOrder){		
 		return new ResponseEntity<>(exchangeService.getUnmatchedOrders(fetchOrder),HttpStatus.OK);		
 	}	
 	
