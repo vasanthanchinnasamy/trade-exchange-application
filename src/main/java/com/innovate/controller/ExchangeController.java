@@ -22,12 +22,7 @@ import com.innovate.service.ExchangeService;
 public class ExchangeController {
 	
 	@Autowired
-	private TradeRepository tradeRepository;
-	
-	@Autowired
 	private ExchangeService exchangeService;
-	
-	
 	
 	/**
 	 * getTrades fetch trades based on Seller Code, Buyer Code, Stock Code, Trade Date when filters are passed.
@@ -37,7 +32,7 @@ public class ExchangeController {
 	 */
 	@GetMapping("/getTrades")
 	public ResponseEntity<List<Trade>> getTrades(@RequestBody FetchTrade fetchTrade){		
-		return new ResponseEntity<>(tradeRepository.getTrades(fetchTrade),HttpStatus.OK);		
+		return new ResponseEntity<>(exchangeService.getTrades(fetchTrade),HttpStatus.OK);		
 	}	 
 	
 	
